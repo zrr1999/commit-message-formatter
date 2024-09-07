@@ -88,6 +88,13 @@ const gitmojis: Gitmoji[] = [
     name: "package",
     type: "build",
   },
+  {
+    code: ":tada:",
+    desc: "Begin a project.",
+    emoji: "🎉",
+    name: "tada",
+    type: "init",
+  },
 ];
 
 interface GitmojiListItemProps {
