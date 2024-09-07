@@ -14,6 +14,12 @@
       "title": "Gitmoji",
       "description": "Search your Gitmoji and copy or paste it",
       "mode": "view"
+    },
+    {
+      "name": "gitmoji-llm",
+      "title": "Gitmoji LLM",
+      "description": "Use LLM to generate commit message according to the selected text",
+      "mode": "no-view"
     }
   ],
   "preferences": [
@@ -81,8 +87,8 @@
     }
   ],
   "dependencies": {
-    "@raycast/api": "^1.42.0",
-    "@raycast/utils": "^1.5.2",
+    "@raycast/api": "^1.82.0",
+    "@raycast/utils": "^1.17.0",
     "node-fetch": "^3.3.0"
   },
   "devDependencies": {

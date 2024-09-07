@@ -1,6 +1,14 @@
-import { Action, ActionPanel, Color, getPreferenceValues, List, showToast, Toast } from "@raycast/api";
-import { useFetch } from "@raycast/utils";
-import Style = Toast.Style;
+import {
+  Action,
+  ActionPanel,
+  Color,
+  getPreferenceValues,
+  List,
+  getSelectedText,
+  Clipboard,
+  showToast,
+  Toast,
+} from "@raycast/api";
 
 interface PreferenceValues {
   emojiFormat: "emoji" | "code";
