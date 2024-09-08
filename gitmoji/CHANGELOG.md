@@ -6,6 +6,7 @@
 - ✨ feat: switch to using function calling
 - 🔧 chore: format code styling
 - ✨ feat: support copy and paste actions
+- 🔧 chore: upgrade typescript to 5.5.4
 
 ## [Upgrade Gitmoji Commit] - 2024-09-08
 
