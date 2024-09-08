@@ -1,76 +1,104 @@
 import { getPreferenceValues, getSelectedText, Clipboard, showToast, Toast } from "@raycast/api";
 import { Gitmoji, PreferenceValues, gitmojis } from "./lib/types";
 import { OpenAI } from "openai";
+import { ChatCompletionTool } from "openai/resources";
 
-async function ask(prompt: string) {
-  const { openAiApiKey, openAiBasePath } = getPreferenceValues<PreferenceValues>();
+async function ask(prompt: string, tools: ChatCompletionTool[]) {
+  const { openAiApiKey, openAiBasePath, model } = getPreferenceValues<PreferenceValues>();
 
   const openai = new OpenAI({
     apiKey: openAiApiKey,
     baseURL: openAiBasePath,
   });
 
-  const stream = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
+  const answer = await openai.chat.completions.create({
+    model: model,
     messages: [{ role: "user", content: prompt }],
-    stream: true,
+    tools: tools,
+    tool_choice: "required",
   });
-  return stream;
+  return answer;
 }
 
 function getEmojiText(gitmoji: Gitmoji) {
-  const { emojiFormat, copyFormat, terminator } = getPreferenceValues<PreferenceValues>();
+  const { emojiFormat, copyFormat } = getPreferenceValues<PreferenceValues>();
   const { emoji, code, type } = gitmoji;
   let emojiText = emojiFormat === "emoji" ? emoji : code;
 
   if (copyFormat === "emoji-type") {
-    emojiText = `${emojiText} ${type}${terminator}`;
+    emojiText = `${emojiText} ${type}`;
   }
   return emojiText;
 }
 
 export default async function GitmojiLLM() {
-  const { action } = getPreferenceValues<PreferenceValues>();
+  const { action, terminator } = getPreferenceValues<PreferenceValues>();
 
-  const gitmojiPrompt = gitmojis.map((gitmoji) => `${getEmojiText(gitmoji)}short commit message`).join("\n");
   const prompt = `
 You are a helpful assistant that generates commit messages based on the selected text.
 The commit message must start with the specified format, such as "✨ feat:", followed by a short summary of the changes made.
 Use imperative mood and write in lower case English.
 
+**Important:** The commit type must be one of the following:
+${gitmojis.map((gitmoji) => `${getEmojiText(gitmoji)}`).join("\n")}
+
 **Important:** The commit message must be generated in English, even if the user provides input in another language.
 
 Ensure the message adheres strictly to this format:
-${gitmojiPrompt}
+{type}{terminator}{message}
+If you give a function calling, the terminator is not needed, and no blank symbol in the type andmessage.
 
 Gitmojis' descriptions are as follows:
 ${gitmojis.map((gitmoji) => `${gitmoji.code} - ${gitmoji.desc}`).join("\n")}
 
-For example, use "✨ feat: add functionality for information retrieval" instead of longer descriptions.
-  `;
+For example, use "${getEmojiText(gitmojis[0])}${terminator}add functionality for information retrieval" instead of longer descriptions.
+`;
 
-  const selectedText = await getSelectedText();
+  const tools = [
+    {
+      type: "function" as const,
+      function: {
+        name: "generate_commit_message",
+        parameters: {
+          type: "object",
+          properties: {
+            type: { type: "string" },
+            message: { type: "string" },
+          },
+          required: ["type", "message"],
+          additionalProperties: false,
+        },
+      },
+    },
+  ];
 
+  const selectedText = (await getSelectedText()) || (await Clipboard.readText());
+  if (!selectedText) {
+    await showToast({
+      style: Toast.Style.Failure,
+      title: "No text selected",
+    });
+    return;
+  }
   try {
-    const stream = await ask(`${prompt}\n\nSelected text: ${selectedText}`);
-    let allData = "";
-
+    const answer = await ask(`${prompt}\n\nSelected text: ${selectedText}`, tools);
+    let commitMessage = answer.choices[0]?.message.content || "";
+    if (answer.choices[0]?.message.tool_calls) {
+      const toolCall = answer.choices[0]?.message.tool_calls[0];
+      const toolCallFunction = toolCall.function;
+      const functionArguments = JSON.parse(toolCallFunction.arguments);
+      commitMessage = `${functionArguments.type}${terminator}${functionArguments.message}`;
+    }
     if (action === "paste") {
-      for await (const chunk of stream) {
-        console.log(chunk.choices[0]?.delta?.content);
-        allData += chunk.choices[0]?.delta?.content || "";
-        await Clipboard.paste(allData);
-      }
+      await Clipboard.paste(commitMessage);
     } else {
-      for await (const chunk of stream) {
-        allData += chunk.choices[0]?.delta?.content || "";
-      }
-      await Clipboard.copy(allData);
+      await Clipboard.copy(commitMessage);
     }
   } catch (error) {
     await showToast({
       style: Toast.Style.Failure,
       title: "Failed to generate commit message",
+      message: error.message,
     });
   }
 }
