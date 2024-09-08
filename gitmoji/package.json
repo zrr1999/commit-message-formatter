@@ -104,10 +104,14 @@
         {
           "title": "Paste",
           "value": "paste"
+        },
+        {
+          "title": "Copy and Paste",
+          "value": "copy-paste"
         }
       ],
       "description": "Primary action of the extension",
-      "default": "paste"
+      "default": "copy-paste"
     }
   ],
   "dependencies": {

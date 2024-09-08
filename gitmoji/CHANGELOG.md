@@ -4,6 +4,8 @@
 
 - ✨ feat: support custom models
 - ✨ feat: switch to using function calling
+- 🔧 chore: format code styling
+- ✨ feat: support copy and paste actions
 
 ## [Upgrade Gitmoji Commit] - 2024-09-08
 

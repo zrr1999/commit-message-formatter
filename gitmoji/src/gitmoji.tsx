@@ -1,4 +1,4 @@
-import { Action, ActionPanel, Color, getPreferenceValues, List } from "@raycast/api";
+import { Action, ActionPanel, Clipboard, Color, getPreferenceValues, List } from "@raycast/api";
 import { GitmojiListItemProps, PreferenceValues, gitmojis } from "./lib/types";
 
 const GitmojiList = () => {
@@ -84,9 +84,11 @@ function PrimaryAction({ content }: PrimaryActionProps) {
 
   if (action === "copy") {
     return <Action.CopyToClipboard content={content} />;
+  } else if (action === "paste") {
+    return <Action.Paste content={content} />;
   } else {
+    Clipboard.copy(content);
     return <Action.Paste content={content} />;
   }
 }
-
 export default GitmojiList;

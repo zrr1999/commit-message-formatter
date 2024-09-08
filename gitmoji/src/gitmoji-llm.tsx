@@ -93,8 +93,11 @@ For example, use "${getEmojiText(
     }
     if (action === "paste") {
       await Clipboard.paste(commitMessage);
+    } else if (action === "copy") {
+      await Clipboard.copy(commitMessage);
     } else {
       await Clipboard.copy(commitMessage);
+      await Clipboard.paste(commitMessage);
     }
   } catch (error) {
     await showToast({
