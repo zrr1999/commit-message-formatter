@@ -4,6 +4,7 @@ export interface PreferenceValues {
   copyFormat: "emoji" | "emoji-type";
   terminator: string;
   action: "paste" | "copy";
+  model: string;
   openAiApiKey: string;
   openAiBasePath?: string;
 }

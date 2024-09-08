@@ -33,7 +33,7 @@
           "title": "Model",
           "description": "Model is used to specify the model to use",
           "type": "textfield",
-          "required": true,
+          "required": false,
           "default": "gpt-4o-mini"
         },
         {
@@ -81,7 +81,7 @@
         }
       ],
       "description": "Copy format",
-      "default": "emoji"
+      "default": "emoji-type"
     },
     {
       "name": "terminator",
