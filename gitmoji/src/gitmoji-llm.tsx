@@ -17,14 +17,18 @@ export default async function GitmojiLLM() {
   const gitmojiPrompt = gitmojis.map((gitmoji) => `${getEmojiText(gitmoji)}short commit message`).join("\n");
   const prompt = `
     You are a helpful assistant that generates commit messages based on the selected text.
-    The commit message should be a short summary of the changes made.
-    Your generated commit message should be a imperative mood.
-    Your generated commit message should use lower case english.
-    Your generated commit message should be one of the following:
+    The commit message must start with the specified format, such as "✨ feat:", followed by a short summary of the changes made.
+    Use imperative mood and write in lower case English.
+
+    **Important:** The commit message must be generated in English, even if the user provides input in another language.
+
+    Ensure the message adheres strictly to this format:
     ${gitmojiPrompt}
     
     Gitmojis' descriptions are as follows:
     ${gitmojis.map((gitmoji) => `${gitmoji.code} - ${gitmoji.desc}`).join("\n")}
+
+    For example, use "✨ feat: add functionality for information retrieval" instead of longer descriptions.
   `;
 
   const selectedText = await getSelectedText();
