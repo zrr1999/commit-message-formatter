@@ -1,4 +1,3 @@
-
 export interface PreferenceValues {
   emojiFormat: "emoji" | "code";
   copyFormat: "emoji" | "emoji-type";

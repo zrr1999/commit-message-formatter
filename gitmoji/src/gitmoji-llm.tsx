@@ -51,7 +51,9 @@ If you give a function calling, the terminator is not needed, and no blank symbo
 Gitmojis' descriptions are as follows:
 ${gitmojis.map((gitmoji) => `${gitmoji.code} - ${gitmoji.desc}`).join("\n")}
 
-For example, use "${getEmojiText(gitmojis[0])}${terminator}add functionality for information retrieval" instead of longer descriptions.
+For example, use "${getEmojiText(
+    gitmojis[0]
+  )}${terminator}add functionality for information retrieval" instead of longer descriptions.
 `;
 
   const tools = [

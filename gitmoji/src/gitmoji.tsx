@@ -1,7 +1,6 @@
 import { Action, ActionPanel, Color, getPreferenceValues, List } from "@raycast/api";
 import { GitmojiListItemProps, PreferenceValues, gitmojis } from "./lib/types";
 
-
 const GitmojiList = () => {
   return (
     <List searchBarPlaceholder="Search your gitmoji...">

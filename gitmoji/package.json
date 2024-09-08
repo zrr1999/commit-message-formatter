@@ -112,7 +112,6 @@
   ],
   "dependencies": {
     "@raycast/api": "^1.82.0",
-    "node-fetch": "^3.3.0",
     "openai": "4.58.0"
   },
   "devDependencies": {
