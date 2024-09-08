@@ -2,6 +2,10 @@
 
 ## [Upgrade Gitmoji Commit] - 2024-09-08
 
+- ♻️ refactor: extract common code into separate files
+
+## [Upgrade Gitmoji Commit] - 2024-09-08
+
 - ✨ feat: add gitmoji-llm command for generating commit messages
 
 ## [Upgrade Gitmoji Commit] - 2024-09-07
