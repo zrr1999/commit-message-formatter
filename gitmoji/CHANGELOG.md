@@ -2,6 +2,10 @@
 
 ## [Upgrade Gitmoji Commit] - 2024-09-08
 
+- ✨ feat: use openai's native package instead of raycast's built-in ai
+
+## [Upgrade Gitmoji Commit] - 2024-09-08
+
 - ⚡ perf: optimize prompt
 
 ## [Upgrade Gitmoji Commit] - 2024-09-08

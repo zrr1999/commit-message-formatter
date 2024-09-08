@@ -4,6 +4,8 @@ export interface PreferenceValues {
   copyFormat: "emoji" | "emoji-type";
   terminator: string;
   action: "paste" | "copy";
+  openAiApiKey: string;
+  openAiBasePath?: string;
 }
 
 export interface GitmojiListItemProps {
