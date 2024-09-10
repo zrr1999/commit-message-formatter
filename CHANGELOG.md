@@ -3,6 +3,7 @@
 ## [Upgrade Gitmoji Commit] - 2024-09-10
 
 - ✨ feat: support custom language
+- ♻️ refactor: move all files to root directory
 
 ## [Upgrade Gitmoji Commit] - 2024-09-08
 
