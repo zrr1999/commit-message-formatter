@@ -4,8 +4,11 @@
 
 ## Features
 
-- Search gitmoji by name
-- Generate commit message by LLM following selected text
+- [x] Search gitmoji by name
+- [x] Generate commit message by LLM following selected text
+- [ ] History of generated commit messages
+- [ ] Support custom emojis
+- [ ] Integrate with git diff
 
 ## Preferences
 
@@ -19,4 +22,3 @@ You can customize the following preferences:
 ## Customize
 
 You can fork this repo and change the `src/lib/types.ts` to add more gitmojis.
-

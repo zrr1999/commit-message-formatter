@@ -29,6 +29,24 @@
           "required": true
         },
         {
+          "name": "language",
+          "title": "Language",
+          "description": "LLM will use this language to generate content",
+          "type": "dropdown",
+          "required": true,
+          "data": [
+            {
+              "title": "Lower Case English",
+              "value": "lower-case-english"
+            },
+            {
+              "title": "Simplified Chinese",
+              "value": "simplified-chinese"
+            }
+          ],
+          "default": "lower-case-english"
+        },
+        {
           "name": "model",
           "title": "Model",
           "description": "Model is used to specify the model to use",

@@ -3,7 +3,7 @@ import { Gitmoji, PreferenceValues, gitmojis } from "./lib/types";
 import { OpenAI } from "openai";
 import { ChatCompletionTool } from "openai/resources";
 
-async function ask(prompt: string, tools: ChatCompletionTool[]) {
+async function ask(prompt: string, message: string, tools: ChatCompletionTool[]) {
   const { openAiApiKey, openAiBasePath, model } = getPreferenceValues<PreferenceValues>();
 
   const openai = new OpenAI({
@@ -13,7 +13,10 @@ async function ask(prompt: string, tools: ChatCompletionTool[]) {
 
   const answer = await openai.chat.completions.create({
     model: model,
-    messages: [{ role: "user", content: prompt }],
+    messages: [
+      { role: "system", content: prompt },
+      { role: "user", content: message },
+    ],
     tools: tools,
     tool_choice: "required",
   });
@@ -32,17 +35,17 @@ function getEmojiText(gitmoji: Gitmoji) {
 }
 
 export default async function GitmojiLLM() {
-  const { action, terminator } = getPreferenceValues<PreferenceValues>();
+  const { action, terminator, language } = getPreferenceValues<PreferenceValues>();
 
   const prompt = `
 You are a helpful assistant that generates commit messages based on the selected text.
-The commit message must start with the specified format, such as "✨ feat:", followed by a short summary of the changes made.
-Use imperative mood and write in lower case English.
+The commit message should be a short summary of the changes made.
+Use imperative mood and write in ${language}.
 
 **Important:** The commit type must be one of the following:
 ${gitmojis.map((gitmoji) => `${getEmojiText(gitmoji)}`).join("\n")}
 
-**Important:** The commit message must be generated in English, even if the user provides input in another language.
+**Important:** The commit message must be generated in ${language}, even if the user provides input in another language.
 
 Ensure the message adheres strictly to this format:
 {type}{terminator}{message}
@@ -83,7 +86,7 @@ For example, use "${getEmojiText(
     return;
   }
   try {
-    const answer = await ask(`${prompt}\n\nSelected text: ${selectedText}`, tools);
+    const answer = await ask(prompt, `Selected text: ${selectedText}`, tools);
     let commitMessage = answer.choices[0]?.message.content || "";
     if (answer.choices[0]?.message.tool_calls) {
       const toolCall = answer.choices[0]?.message.tool_calls[0];

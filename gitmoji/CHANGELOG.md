@@ -1,5 +1,9 @@
 # Gitmoji Commit Changelog
 
+## [Upgrade Gitmoji Commit] - 2024-09-10
+
+- ✨ feat: support custom language
+
 ## [Upgrade Gitmoji Commit] - 2024-09-08
 
 - ✨ feat: support custom models

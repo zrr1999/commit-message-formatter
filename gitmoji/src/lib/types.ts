@@ -6,6 +6,7 @@ export interface PreferenceValues {
   model: string;
   openAiApiKey: string;
   openAiBasePath?: string;
+  language: string;
 }
 
 export interface GitmojiListItemProps {
