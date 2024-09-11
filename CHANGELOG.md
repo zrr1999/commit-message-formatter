@@ -11,6 +11,7 @@
 - 🐛 fix: add push-to-fork parameter in create-pull-request to fix action issue
 - 🐛 fix: correct DESCRIPTION and SCREENCAST in publish action
 - ♻️ refactor: use file to pass pr body instead of description and screencast environment variables
+- 🐛 fix: fix token not passed in create-pull-request
 
 ## [Upgrade Gitmoji Commit] - 2024-09-10
 

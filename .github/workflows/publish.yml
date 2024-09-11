@@ -94,7 +94,7 @@ jobs:
         id: cpr
         uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.PAT }}
+          token: ${{ secrets.PAT_TOKEN }}
           push-to-fork: zrr1999/raycast-extensions
           commit-message: |
             if [ "${{ env.IS_FIRST_COMMIT }}" = "true" ]; then
