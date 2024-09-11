@@ -3,6 +3,7 @@
 ## [Upgrade Gitmoji Commit] - 2024-09-11
 
 - ✨ feat: add publish action
+- ✨ feat: add mechanism to generate package-lock.json in action
 
 ## [Upgrade Gitmoji Commit] - 2024-09-10
 

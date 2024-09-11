@@ -6,6 +6,20 @@ on:
       - main
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+      - name: Install dependencies
+        run: bun install
+      - name: Build
+        run: bun run build
+
   upload:
     runs-on: ubuntu-latest
     steps:
@@ -15,10 +29,8 @@ jobs:
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
-
       - name: Install dependencies
-        run: bun install
-
+        run: bunx synp --source-file yarn.lock
       - name: Upload source
         uses: actions/upload-artifact@v4
         with:
@@ -26,7 +38,6 @@ jobs:
           path: |
             *
             !.git/*
-      
   publish:
     runs-on: ubuntu-latest
     steps:
@@ -41,7 +52,7 @@ jobs:
         with:
           name: source
           path: extensions/gitmoji-commit
-      
+
       - name: Publish to zrr1999/raycast-extensions
         run: |
           git config --global user.name 'zrr1999'
@@ -50,11 +61,10 @@ jobs:
           git reset main --hard
           git add .
           git commit -m "🚀 发布 Gitmoji Commit 扩展"
-      
+
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-
           github_token: ${{ secrets.PAT_TOKEN }}
           repository: zrr1999/raycast-extensions
           branch: gitmoji-commit
