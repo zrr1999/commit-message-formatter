@@ -47,13 +47,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          repository: zrr1999/raycast-extensions
+          repository: raycast/extensions
           token: ${{ secrets.PAT_TOKEN }}
       - name: Clean original extension
         run: |
           git checkout -b gitmoji-commit
-          git fetch --depth 1 upstream main
-          git reset --hard upstream/main
           if [ -d "extensions/gitmoji-commit" ]; then
             echo "IS_FIRST_COMMIT=false" >> $GITHUB_ENV
           else
@@ -83,6 +81,7 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.PAT }}
+          push-to-fork: zrr1999/raycast-extensions
           commit-message: |
             if [ "${{ env.IS_FIRST_COMMIT }}" = "true" ]; then
               "🚀 Publish Extension"
