@@ -13,6 +13,7 @@
 - ♻️ refactor: use file to pass pr body instead of description and screencast environment variables
 - 🐛 fix: fix token not passed in create-pull-request
 - 🐛 fix: remove manual checkout for create-pull-request to correctly identify base
+- 🐛 fix: fix commit-message and pr title
 
 ## [Upgrade Gitmoji Commit] - 2024-09-10
 

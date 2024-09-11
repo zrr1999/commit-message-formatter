@@ -95,21 +95,11 @@ jobs:
         with:
           token: ${{ secrets.PAT_TOKEN }}
           push-to-fork: zrr1999/raycast-extensions
-          commit-message: |
-            if [ "${{ env.IS_FIRST_COMMIT }}" = "true" ]; then
-              "🚀 Publish Extension"
-            else
-              "📦 Update Extension"
-            fi
+          commit-message: ${{ env.IS_FIRST_COMMIT == 'true' && '🚀 Publish Extension' || '📦 Update Extension' }}
           signoff: true
           committer: zrr1999 <2742392377@qq.com>
           author: zrr1999 <2742392377@qq.com>
           branch: gitmoji-commit
-          title: |
-            if [ "${{ env.IS_FIRST_COMMIT }}" = "true" ]; then
-              "Add gitmoji-commit extension"
-            else
-              "Update gitmoji-commit extension"
-            fi
+          title: ${{ env.IS_FIRST_COMMIT == 'true' && 'Add gitmoji-commit extension' || 'Update gitmoji-commit extension' }}
           body-path: extensions/gitmoji-commit/PR-BODY.md
           draft: false
