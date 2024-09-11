@@ -39,6 +39,8 @@ jobs:
           path: |
             *
             !.git/*
+            !yarn.lock
+            !bun.lockb
 
   publish:
     runs-on: ubuntu-latest
