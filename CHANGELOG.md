@@ -9,6 +9,7 @@
 - ✨ feat: optimize publish action to support automatic submission PR
 - 🐛 fix: correct git reset command usage
 - 🐛 fix: add push-to-fork parameter in create-pull-request to fix action issue
+- 🐛 fix: correct DESCRIPTION and SCREENCAST in publish action
 
 ## [Upgrade Gitmoji Commit] - 2024-09-10
 

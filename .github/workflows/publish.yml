@@ -70,11 +70,11 @@ jobs:
           path: extensions/gitmoji-commit
       - name: Get description
         run: |
-          DESCRIPTION=$(sed 's/^# /### /; s/^## /#### /' README.md)
+          DESCRIPTION=$(sed 's/^# /### /; s/^## /#### /' extensions/gitmoji-commit/README.md)
           echo "DESCRIPTION=${DESCRIPTION}" >> $GITHUB_ENV
       - name: Get screencast
         run: |
-          SCREENCAST=$(find metadata -name "*.png" -exec echo '![]({})' \; | tr '\n' '\n')
+          SCREENCAST=$(find extensions/gitmoji-commit/metadata -name "*.png" -exec echo '![]({})' \; | tr '\n' '\n')
           echo "SCREENCAST=${SCREENCAST}" >> $GITHUB_ENV
       - name: Create Pull Request
         id: cpr
