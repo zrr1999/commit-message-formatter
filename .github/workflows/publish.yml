@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
         with:
@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Upload source
         uses: actions/upload-artifact@v4
         with:
@@ -45,17 +45,15 @@ jobs:
     needs: [build, upload]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: zrr1999/raycast-extensions
           token: ${{ secrets.PAT_TOKEN }}
       - name: Clean original extension
         run: |
-          git config --global user.name 'zrr1999'
-          git config --global user.email '2742392377@qq.com'
           git checkout -b gitmoji-commit
-          git reset --hard main
-          git pull upstream main
+          git fetch --depth 1 upstream main
+          git reset --hard upstream/main
           if [ -d "extensions/gitmoji-commit" ]; then
             echo "IS_FIRST_COMMIT=false" >> $GITHUB_ENV
           else
