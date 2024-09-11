@@ -54,7 +54,8 @@ jobs:
           git config --global user.name 'zrr1999'
           git config --global user.email '2742392377@qq.com'
           git checkout -b gitmoji-commit
-          git reset --hard upstream/main
+          git reset --hard main
+          git pull upstream main
           if [ -d "extensions/gitmoji-commit" ]; then
             echo "IS_FIRST_COMMIT=false" >> $GITHUB_ENV
           else
