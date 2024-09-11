@@ -5,6 +5,7 @@
 - ✨ feat: add publish action
 - ✨ feat: add mechanism to generate package-lock.json in action
 - 🐛 fix: resolve issue with node_modules directory not existing in path in action
+- 🐛 fix: resolve issue with upload-artifact name
 
 ## [Upgrade Gitmoji Commit] - 2024-09-10
 

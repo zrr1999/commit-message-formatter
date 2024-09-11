@@ -17,12 +17,12 @@ jobs:
           bun-version: latest
       - name: Install dependencies
         run: bun install
-      - name: Install dependencies
+      - name: Generate package-lock.json
         run: bunx synp --source-file yarn.lock
       - name: Upload package-lock.json
         uses: actions/upload-artifact@v4
         with:
-          name: source
+          name: lock
           path: package-lock.json
       - name: Build
         run: bun run build
@@ -49,13 +49,16 @@ jobs:
         with:
           repository: zrr1999/raycast-extensions
           token: ${{ secrets.PAT_TOKEN }}
-
+      - name: Download lock
+        uses: actions/download-artifact@v4
+        with:
+          name: lock
+          path: extensions/gitmoji-commit
       - name: Download source
         uses: actions/download-artifact@v4
         with:
           name: source
           path: extensions/gitmoji-commit
-
       - name: Publish to zrr1999/raycast-extensions
         run: |
           git config --global user.name 'zrr1999'
@@ -64,7 +67,6 @@ jobs:
           git reset main --hard
           git add .
           git commit -m "🚀 发布 Gitmoji Commit 扩展"
-
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
