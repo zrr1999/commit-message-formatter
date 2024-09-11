@@ -9,6 +9,7 @@
 - [ ] History of generated commit messages
 - [ ] Support custom emojis
 - [ ] Integrate with git diff
+- [ ] Let LLM generate string type and use predefined function to generate type of commit message
 
 ## Preferences
 

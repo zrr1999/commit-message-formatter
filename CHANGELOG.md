@@ -1,5 +1,9 @@
 # Gitmoji Commit Changelog
 
+## [Upgrade Gitmoji Commit] - 2024-09-11
+
+- ✨ feat: add publish action
+
 ## [Upgrade Gitmoji Commit] - 2024-09-10
 
 - ✨ feat: support custom language

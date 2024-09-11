@@ -1,0 +1,61 @@
+name: Publish Extension
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Upload source
+        uses: actions/upload-artifact@v4
+        with:
+          name: source
+          path: |
+            *
+            !.git/*
+      
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          repository: zrr1999/raycast-extensions
+          token: ${{ secrets.PAT_TOKEN }}
+
+      - name: Download source
+        uses: actions/download-artifact@v4
+        with:
+          name: source
+          path: extensions/gitmoji-commit
+      
+      - name: Publish to zrr1999/raycast-extensions
+        run: |
+          git config --global user.name 'zrr1999'
+          git config --global user.email '2742392377@qq.com'
+          git checkout -b gitmoji-commit
+          git reset main --hard
+          git add .
+          git commit -m "🚀 发布 Gitmoji Commit 扩展"
+      
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+
+          github_token: ${{ secrets.PAT_TOKEN }}
+          repository: zrr1999/raycast-extensions
+          branch: gitmoji-commit
+          force: true
