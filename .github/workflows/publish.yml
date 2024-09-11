@@ -51,7 +51,6 @@ jobs:
           token: ${{ secrets.PAT_TOKEN }}
       - name: Clean original extension
         run: |
-          git checkout -b gitmoji-commit
           if [ -d "extensions/gitmoji-commit" ]; then
             echo "IS_FIRST_COMMIT=false" >> $GITHUB_ENV
           else
