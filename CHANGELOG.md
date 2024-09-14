@@ -3,6 +3,7 @@
 ## [Upgrade Gitmoji Commit] - 2024-09-14
 
 - ♻️ refactor: use structured approach to generate commit message type
+- ✨ feat: add generating animation when generating commit message
 
 ## [Upgrade Gitmoji Commit] - 2024-09-11
 

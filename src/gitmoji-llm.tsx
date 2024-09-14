@@ -1,5 +1,5 @@
 import { getPreferenceValues, getSelectedText, Clipboard, showToast, Toast } from "@raycast/api";
-import { Gitmoji, PreferenceValues, gitmojis } from "./lib/types";
+import { PreferenceValues, gitmojis } from "./lib/types";
 import { OpenAI } from "openai";
 import { ChatCompletionTool } from "openai/resources";
 
@@ -85,6 +85,10 @@ For example, use ("${gitmojis[0].type}", "add functionality for information retr
     });
     return;
   }
+  await showToast({
+    style: Toast.Style.Animated,
+    title: "Generating commit message...",
+  });
   try {
     const answer = await ask(prompt, `Selected text: ${selectedText}`, tools);
     let commitMessage = answer.choices[0]?.message.content || "";
