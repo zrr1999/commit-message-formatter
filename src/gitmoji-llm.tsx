@@ -23,10 +23,13 @@ async function ask(prompt: string, message: string, tools: ChatCompletionTool[])
   return answer;
 }
 
-function getEmojiText(gitmoji: Gitmoji) {
+function getEmojiTextByType(type: string) {
   const { emojiFormat, copyFormat } = getPreferenceValues<PreferenceValues>();
-  const { emoji, code, type } = gitmoji;
-  let emojiText = emojiFormat === "emoji" ? emoji : code;
+  const gitmoji = gitmojis.find((g) => g.type === type);
+  if (!gitmoji) {
+    throw new Error(`No gitmoji found for type: ${type}`);
+  }
+  let emojiText = emojiFormat === "emoji" ? gitmoji.emoji : gitmoji.code;
 
   if (copyFormat === "emoji-type") {
     emojiText = `${emojiText} ${type}`;
@@ -38,25 +41,22 @@ export default async function GitmojiLLM() {
   const { action, terminator, language } = getPreferenceValues<PreferenceValues>();
 
   const prompt = `
-You are a helpful assistant that generates commit messages based on the selected text.
+You are a helpful assistant that generates commit ${language} messages based on the selected text.
 The commit message should be a short summary of the changes made.
-Use imperative mood and write in ${language}.
-
-**Important:** The commit type must be one of the following:
-${gitmojis.map((gitmoji) => `${getEmojiText(gitmoji)}`).join("\n")}
-
-**Important:** The commit message must be generated in ${language}, even if the user provides input in another language.
-
-Ensure the message adheres strictly to this format:
-{type}{terminator}{message}
-If you give a function calling, the terminator is not needed, and no blank symbol in the type andmessage.
 
 Gitmojis' descriptions are as follows:
 ${gitmojis.map((gitmoji) => `${gitmoji.code} - ${gitmoji.desc}`).join("\n")}
 
-For example, use "${getEmojiText(
-    gitmojis[0]
-  )}${terminator}add functionality for information retrieval" instead of longer descriptions.
+**Important:** The commit type must be one of the following:
+${gitmojis.map((gitmoji) => `${gitmoji.type}`).join("\n")}
+
+**Important:** Use imperative mood and write in ${language}!!
+
+**Important:** You must give *one* type and message!
+
+**Important:** You must translate commit message to ${language}!
+
+For example, use ("${gitmojis[0].type}", "add functionality for information retrieval") instead of longer descriptions.
 `;
 
   const tools = [
@@ -92,7 +92,7 @@ For example, use "${getEmojiText(
       const toolCall = answer.choices[0]?.message.tool_calls[0];
       const toolCallFunction = toolCall.function;
       const functionArguments = JSON.parse(toolCallFunction.arguments);
-      commitMessage = `${functionArguments.type}${terminator}${functionArguments.message}`;
+      commitMessage = `${getEmojiTextByType(functionArguments.type)}${terminator}${functionArguments.message}`;
     }
     if (action === "paste") {
       await Clipboard.paste(commitMessage);

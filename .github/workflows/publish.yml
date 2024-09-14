@@ -39,6 +39,7 @@ jobs:
           path: |
             *
             !.git/*
+            !.github/*
             !yarn.lock
             !bun.lockb
 

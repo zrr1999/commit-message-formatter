@@ -37,14 +37,14 @@
           "data": [
             {
               "title": "Lower Case English",
-              "value": "lower-case-english"
+              "value": "Lower Case English"
             },
             {
               "title": "Simplified Chinese",
-              "value": "simplified-chinese"
+              "value": "Simplified Chinese"
             }
           ],
-          "default": "lower-case-english"
+          "default": "Lower Case English"
         },
         {
           "name": "model",

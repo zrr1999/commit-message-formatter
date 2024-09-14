@@ -1,5 +1,9 @@
 # Gitmoji Commit Changelog
 
+## [Upgrade Gitmoji Commit] - 2024-09-14
+
+- ♻️ refactor: use structured approach to generate commit message type
+
 ## [Upgrade Gitmoji Commit] - 2024-09-11
 
 - ✨ feat: add publish action

@@ -19,7 +19,15 @@ export type Gitmoji = {
   name: string;
   type: string;
 };
+
 export const gitmojis: Gitmoji[] = [
+  {
+    code: ":boom:",
+    desc: "Breaking changes",
+    emoji: "💥",
+    name: "boom",
+    type: "breaking",
+  },
   {
     code: ":sparkles:",
     desc: "Introduce new features",
