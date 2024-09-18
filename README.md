@@ -9,16 +9,15 @@
 - [ ] History of generated commit messages
 - [ ] Support custom emojis
 - [ ] Integrate with git diff
-- [ ] Let LLM generate string type and use predefined function to generate type of commit message
 
 ## Preferences
 
 You can customize the following preferences:
 
-- `Emoji Format`: Choose between emoji and emoji code.
+- `Emoji Format`: Choose between `emoji` and `emoji code`.
 - `Copy Format`: Choose between `emoji-type` and `emoji`.
-- `Terminator`: Change the terminator of the commit message.
-- `Action`: Choose between `Copy to Clipboard` and `Paste into Editor`.
+- `Terminator`: Change the terminator of the commit type and message.
+- `Action`: Choose between `Copy to Clipboard`, `Paste into Editor` and `Copy and Paste`.
 
 ## Customize
 

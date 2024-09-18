@@ -41,15 +41,19 @@ export default async function GitmojiLLM() {
   const { action, terminator, language } = getPreferenceValues<PreferenceValues>();
 
   const prompt = `
-You are a helpful assistant that generates commit ${language} messages based on the selected text.
-The commit message should be a short summary of the changes made.
+You are a helpful assistant that generates commit messages in ${language} based on the selected text.
+The commit message should be a concise summary of the changes made.
 
 Gitmojis' descriptions are as follows:
 ${gitmojis.map((gitmoji) => `${gitmoji.code} - ${gitmoji.desc}`).join("\n")}
 
-**Important:** Use imperative mood and write in ${language}!!
+**Important:** Do not modify class names, method names, etc., and do not change the case, just add \` around them.
 
-**Important:** You must translate commit message to ${language}!
+**Important:** Use imperative mood and write in ${language}.
+
+**Important:** Translate the commit message to ${language}.
+
+**Important:** If specific capitalization or language is required, such as for proper nouns, do not modify the case or language.
 
 For example, use ("${gitmojis[0].type}", "add functionality for information retrieval") instead of longer descriptions.
 `;
