@@ -1,4 +1,4 @@
-import { getPreferenceValues, getSelectedText, Clipboard, showToast, Toast } from "@raycast/api";
+import { getPreferenceValues, getSelectedText, Clipboard, showToast, Toast, showHUD } from "@raycast/api";
 import { PreferenceValues, gitmojis } from "./lib/types";
 import { OpenAI } from "openai";
 import { ChatCompletionTool } from "openai/resources";
@@ -47,18 +47,12 @@ The commit message should be a short summary of the changes made.
 Gitmojis' descriptions are as follows:
 ${gitmojis.map((gitmoji) => `${gitmoji.code} - ${gitmoji.desc}`).join("\n")}
 
-**Important:** The commit type must be one of the following:
-${gitmojis.map((gitmoji) => `${gitmoji.type}`).join("\n")}
-
 **Important:** Use imperative mood and write in ${language}!!
-
-**Important:** You must give *one* type and message!
 
 **Important:** You must translate commit message to ${language}!
 
 For example, use ("${gitmojis[0].type}", "add functionality for information retrieval") instead of longer descriptions.
 `;
-
   const tools = [
     {
       type: "function" as const,
@@ -67,7 +61,10 @@ For example, use ("${gitmojis[0].type}", "add functionality for information retr
         parameters: {
           type: "object",
           properties: {
-            type: { type: "string" },
+            type: {
+              type: "string",
+              enum: gitmojis.map((gitmoji) => gitmoji.type),
+            },
             message: { type: "string" },
           },
           required: ["type", "message"],
@@ -98,13 +95,12 @@ For example, use ("${gitmojis[0].type}", "add functionality for information retr
       const functionArguments = JSON.parse(toolCallFunction.arguments);
       commitMessage = `${getEmojiTextByType(functionArguments.type)}${terminator}${functionArguments.message}`;
     }
-    if (action === "paste") {
+    if (action.includes("paste")) {
       await Clipboard.paste(commitMessage);
-    } else if (action === "copy") {
+    }
+    if (action.includes("copy")) {
+      await showHUD("Commit message copied to clipboard");
       await Clipboard.copy(commitMessage);
-    } else {
-      await Clipboard.copy(commitMessage);
-      await Clipboard.paste(commitMessage);
     }
   } catch (error) {
     await showToast({

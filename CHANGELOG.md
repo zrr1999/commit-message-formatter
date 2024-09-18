@@ -1,5 +1,9 @@
 # Gitmoji Commit Changelog
 
+## [Upgrade Gitmoji Commit] - 2024-09-18
+
+- ⚡ perf: improve stability and add completion message for message generation command agent
+
 ## [Upgrade Gitmoji Commit] - 2024-09-14
 
 - ♻️ refactor: use structured approach to generate commit message type

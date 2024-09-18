@@ -2,7 +2,7 @@ export interface PreferenceValues {
   emojiFormat: "emoji" | "code";
   copyFormat: "emoji" | "emoji-type";
   terminator: string;
-  action: "paste" | "copy";
+  action: "paste" | "copy" | "copy-paste";
   model: string;
   openAiApiKey: string;
   openAiBasePath?: string;
