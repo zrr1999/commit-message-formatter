@@ -91,7 +91,7 @@ For example, use ("${gitmojis[0].type}", "add functionality for information retr
     title: "Generating commit message...",
   });
   try {
-    const answer = await ask(prompt, `Selected text: ${selectedText}`, tools);
+    const answer = await ask(prompt, `Selected text: ${selectedText}. Give me a commit message and translate it to ${language}.`, tools);
     let commitMessage = answer.choices[0]?.message.content || "";
     if (answer.choices[0]?.message.tool_calls) {
       const toolCall = answer.choices[0]?.message.tool_calls[0];

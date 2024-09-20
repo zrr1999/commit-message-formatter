@@ -79,7 +79,7 @@ export const gitmojis: Gitmoji[] = [
   },
   {
     code: ":construction_worker:",
-    desc: "Changes to our CI configuration files and scripts",
+    desc: "Changes to our CI(Github Action) configuration files and scripts",
     emoji: "👷",
     name: "construction-worker",
     type: "ci",

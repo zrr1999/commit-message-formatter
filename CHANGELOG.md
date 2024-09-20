@@ -1,5 +1,9 @@
 # Gitmoji Commit Changelog
 
+## [Upgrade Gitmoji Commit] - 2024-09-20
+
+- ⚡ perf: optimize prompts
+
 ## [Upgrade Gitmoji Commit] - 2024-09-18
 
 - ⚡ perf: improve stability and add completion message for message generation command agent
