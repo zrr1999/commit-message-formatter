@@ -74,7 +74,7 @@ jobs:
         run: |
           DESCRIPTION=$(sed 's/^# /### /; s/^## /#### /' extensions/gitmoji-commit/README.md)
           SCREENCAST=$(find extensions/gitmoji-commit/metadata -name "*.png" -exec echo '![]({})' \; | tr '\n' '\n')
-          cat <<EOF > extensions/gitmoji-commit/PR-BODY.md
+          cat <<EOF > ../PR-BODY.md
           ## Description
           ${DESCRIPTION}
 
@@ -104,5 +104,5 @@ jobs:
           author: zrr1999 <2742392377@qq.com>
           branch: gitmoji-commit
           title: ${{ env.IS_FIRST_COMMIT == 'true' && 'Add gitmoji-commit extension' || 'Update gitmoji-commit extension' }}
-          body-path: extensions/gitmoji-commit/PR-BODY.md
+          body-path: ../PR-BODY.md
           draft: false
