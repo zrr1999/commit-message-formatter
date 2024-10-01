@@ -16,8 +16,8 @@
       "mode": "view"
     },
     {
-      "name": "gitmoji-llm",
-      "title": "Gitmoji LLM",
+      "name": "gitmoji-commit",
+      "title": "Generate Commit Message",
       "description": "Use LLM to generate commit message according to the selected text",
       "mode": "no-view",
       "preferences": [
