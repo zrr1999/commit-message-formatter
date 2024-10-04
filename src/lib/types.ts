@@ -11,8 +11,16 @@ export interface PreferenceValues {
 }
 
 export interface GitmojiListItemProps {
+  id: string;
   gitmoji: Gitmoji;
 }
+
+export interface CommitMessageItemProps {
+  id: string;
+  commitMessage: string;
+  onRegenerate: () => void;
+}
+
 export type Gitmoji = {
   emoji: string;
   code: string;

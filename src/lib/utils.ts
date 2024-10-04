@@ -9,7 +9,6 @@ export async function ask(prompt: string, message: string, tools: ChatCompletion
     apiKey: openAiApiKey,
     baseURL: openAiBasePath,
   });
-
   const answer = await openai.chat.completions.create({
     model: model,
     messages: [
@@ -18,6 +17,7 @@ export async function ask(prompt: string, message: string, tools: ChatCompletion
     ],
     tools: tools,
     tool_choice: "required",
+    frequency_penalty: 2,
   });
   return answer;
 }

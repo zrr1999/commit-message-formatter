@@ -1,5 +1,5 @@
-import { Action, ActionPanel, Clipboard, Color, getPreferenceValues, List, LaunchProps } from "@raycast/api";
-import { GitmojiListItemProps, PreferenceValues, gitmojis } from "./lib/types";
+import { Action, ActionPanel, Clipboard, Color, getPreferenceValues, List, LaunchProps, Icon } from "@raycast/api";
+import { GitmojiListItemProps, CommitMessageItemProps, PreferenceValues, gitmojis } from "./lib/types";
 import { useState } from "react";
 import { usePromise } from "@raycast/utils";
 import { getCommitMessage } from "./lib/utils";
@@ -16,56 +16,99 @@ function getMultiCommitMessage(input: string) {
 
 export default function SearchCommitType(props: LaunchProps<{ arguments: SearchCommitTypeArgs }>) {
   const [input, setInput] = useState(props.arguments.commitMessage);
-
+  const [isShowingDetail, setIsShowingDetail] = useState(false);
   const { isLoading, data: commitMessages } = usePromise(getMultiCommitMessage, [input]);
+
   return (
     <List
-      searchBarPlaceholder={input || "Search your gitmoji..."}
+      searchBarPlaceholder={props.arguments.commitMessage || "Search your gitmoji..."}
       isLoading={isLoading}
+      isShowingDetail={isShowingDetail}
       searchText={input}
       onSearchTextChange={setInput}
+      onSelectionChange={(id) => {
+        setIsShowingDetail(id?.startsWith("message-") || false);
+      }}
+      throttle={true}
     >
       <List.Section title="Commit Message">
         {isLoading || !commitMessages ? (
-          <List.Item title="Generating commit message..." />
+          <List.Item
+            id="generating-commit-message-loading"
+            icon={Icon.CircleProgress}
+            title="Generating commit message..."
+          />
         ) : (
           commitMessages
             .filter((commitMessage) => commitMessage !== undefined)
-            .map((commitMessage) => (
-              <List.Item
-                key={commitMessage}
-                title={commitMessage}
-                detail={<List.Item.Detail markdown={commitMessage} />}
-                actions={
-                  <ActionPanel>
-                    <PrimaryAction content={commitMessage} />
-                    <ActionPanel.Section>
-                      <Action.CopyToClipboard
-                        content={commitMessage}
-                        title="Copy Commit Type"
-                        shortcut={{ modifiers: ["cmd", "shift"], key: "c" }}
-                      />
-                    </ActionPanel.Section>
-
-                    <ActionPanel.Section>
-                      <Action.Paste
-                        content={commitMessage}
-                        title="Paste Commit Type"
-                        shortcut={{ modifiers: ["cmd", "shift"], key: "p" }}
-                      />
-                    </ActionPanel.Section>
-                  </ActionPanel>
-                }
+            .map((commitMessage, index) => (
+              <CommitMessageItem
+                id={`message-${input}-${index}`}
+                key={`message-${input}-${index}`}
+                commitMessage={commitMessage}
+                onRegenerate={() => {
+                  setInput(commitMessage);
+                }}
               />
             ))
         )}
       </List.Section>
-      <List.Section title="Gitmojis">
+      <List.Section title="Gitmoji">
         {gitmojis.map((gitmoji) => (
-          <GitmojiListItem key={gitmoji.name} gitmoji={gitmoji} />
+          <GitmojiListItem id={gitmoji.name} key={gitmoji.name} gitmoji={gitmoji} />
         ))}
       </List.Section>
     </List>
+  );
+}
+
+function CommitMessageItem({ id, commitMessage, onRegenerate }: CommitMessageItemProps) {
+  const { model, language } = getPreferenceValues<PreferenceValues>();
+
+  return (
+    <List.Item
+      id={id}
+      title={commitMessage}
+      icon={Icon.Message}
+      detail={
+        <List.Item.Detail
+          markdown={`**${commitMessage}**`}
+          metadata={
+            <List.Item.Detail.Metadata>
+              <List.Item.Detail.Metadata.Label title="Model" text={`${model}`} />
+              <List.Item.Detail.Metadata.Label title="Language" text={`${language}`} />
+            </List.Item.Detail.Metadata>
+          }
+        />
+      }
+      actions={
+        <ActionPanel>
+          <PrimaryAction content={commitMessage} />
+          <ActionPanel.Section>
+            <Action
+              title="Regenerate Commit Message"
+              shortcut={{ modifiers: ["cmd", "shift"], key: "r" }}
+              onAction={() => {
+                onRegenerate();
+              }}
+            />
+          </ActionPanel.Section>
+
+          <ActionPanel.Section>
+            <Action.CopyToClipboard
+              content={commitMessage}
+              title="Copy Commit Type"
+              shortcut={{ modifiers: ["cmd", "shift"], key: "c" }}
+            />
+            <Action.Paste
+              content={commitMessage}
+              title="Paste Commit Type"
+              shortcut={{ modifiers: ["cmd", "shift"], key: "p" }}
+            />
+          </ActionPanel.Section>
+        </ActionPanel>
+      }
+    />
   );
 }
 
@@ -81,8 +124,7 @@ function GitmojiListItem({ gitmoji }: GitmojiListItemProps) {
 
   return (
     <List.Item
-      id={name}
-      key={name}
+      id={`gitmoji-${name}`}
       title={desc}
       icon={emoji}
       accessories={[{ tag: { value: `${emojiText}${terminator}...`, color: Color.Yellow } }]}
