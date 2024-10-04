@@ -1,6 +1,6 @@
-# Gitmoji Commit
+# Commit Message Formatter
 
-[Gitmoji Commit](https://github.com/zrr1999/gitmoji-commit) is an emoji commit messages generator.
+[Commit Message Formatter](https://github.com/zrr1999/gitmoji-commit) is an emoji commit messages generator.
 
 ## Features
 

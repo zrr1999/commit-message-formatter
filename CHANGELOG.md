@@ -1,20 +1,28 @@
-# Gitmoji Commit Changelog
+# Commit Message Formatter Changelog
 
-## [Upgrade Gitmoji Commit] - 2024-09-20
+## [Upgrade Commit Message Formatter] - 2024-10-03
+- 🔧 chore: change project name to commit-message-formatter
+
+## [Upgrade Commit Message Formatter] - 2024-10-01
+
+- 👷 ci: improve publish workflow
+- 🔧 chore: rename gitmoji-llm to gitmoji-commit
+
+## [Upgrade Commit Message Formatter] - 2024-09-20
 
 - ⚡ perf: optimize prompts
 
-## [Upgrade Gitmoji Commit] - 2024-09-18
+## [Upgrade Commit Message Formatter] - 2024-09-18
 
 - ⚡ perf: improve stability and add completion message for message generation command agent
 - ⚡ perf: optimize prompts
 
-## [Upgrade Gitmoji Commit] - 2024-09-14
+## [Upgrade Commit Message Formatter] - 2024-09-14
 
 - ♻️ refactor: use structured approach to generate commit message type
 - ✨ feat: add generating animation when generating commit message
 
-## [Upgrade Gitmoji Commit] - 2024-09-11
+## [Upgrade Commit Message Formatter] - 2024-09-11
 
 - ✨ feat: add publish action
 - ✨ feat: add mechanism to generate package-lock.json in action
@@ -30,12 +38,12 @@
 - 🐛 fix: fix commit-message and pr title
 - 🔧 chore: remove bun.lockb and yarn.lock from source code
 
-## [Upgrade Gitmoji Commit] - 2024-09-10
+## [Upgrade Commit Message Formatter] - 2024-09-10
 
 - ✨ feat: support custom language
 - ♻️ refactor: move all files to root directory
 
-## [Upgrade Gitmoji Commit] - 2024-09-08
+## [Upgrade Commit Message Formatter] - 2024-09-08
 
 - ✨ feat: support custom models
 - ✨ feat: switch to using function calling
@@ -43,26 +51,26 @@
 - ✨ feat: support copy and paste actions
 - 🔧 chore: upgrade typescript to 5.5.4
 
-## [Upgrade Gitmoji Commit] - 2024-09-08
+## [Upgrade Commit Message Formatter] - 2024-09-08
 
 - ✨ feat: use openai's native package instead of raycast's built-in ai
 
-## [Upgrade Gitmoji Commit] - 2024-09-08
+## [Upgrade Commit Message Formatter] - 2024-09-08
 
 - ⚡ perf: optimize prompt
 
-## [Upgrade Gitmoji Commit] - 2024-09-08
+## [Upgrade Commit Message Formatter] - 2024-09-08
 
 - ♻️ refactor: extract common code into separate files
 
-## [Upgrade Gitmoji Commit] - 2024-09-08
+## [Upgrade Commit Message Formatter] - 2024-09-08
 
 - ✨ feat: add gitmoji-llm command for generating commit messages
 
-## [Upgrade Gitmoji Commit] - 2024-09-07
+## [Upgrade Commit Message Formatter] - 2024-09-07
 
 - ✨ feat: add `🎉:tada:` to the list of gitmojis
 
-## [Add Gitmoji Commit Extension] - 2024-09-07
+## [Add Commit Message Formatter Extension] - 2024-09-07
 
-- Add initial version of the Gitmoji Commit extension
+- Add initial version of the Commit Message Formatter extension

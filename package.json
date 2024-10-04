@@ -1,8 +1,8 @@
 {
   "$schema": "https://www.raycast.com/schemas/extension.json",
-  "name": "gitmoji-commit",
-  "title": "Gitmoji Commit",
-  "description": "Gitmoji Commit is an emoji guide for your commit messages",
+  "name": "commit-message-formatter",
+  "title": "Commit Message Formatter",
+  "description": "Generate and format your commit message according to the selected text with LLM",
   "icon": "icon.png",
   "owner": "bone-corp",
   "author": "zrr1999",
@@ -10,13 +10,21 @@
   "license": "MIT",
   "commands": [
     {
-      "name": "gitmoji",
-      "title": "Gitmoji",
-      "description": "Search your Gitmoji and copy or paste it",
-      "mode": "view"
+      "name": "search-commit-type",
+      "title": "Search Commit Type",
+      "description": "Search commit type and copy or paste it",
+      "mode": "view",
+      "arguments": [
+        {
+          "name": "commitMessage",
+          "placeholder": "Commit message",
+          "required": false,
+          "type": "text"
+        }
+      ]
     },
     {
-      "name": "gitmoji-commit",
+      "name": "generate-commit-message",
       "title": "Generate Commit Message",
       "description": "Use LLM to generate commit message according to the selected text",
       "mode": "no-view",

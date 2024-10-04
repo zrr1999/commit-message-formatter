@@ -37,7 +37,7 @@ function getEmojiTextByType(type: string) {
   return emojiText;
 }
 
-export default async function GitmojiLLM() {
+export default async function GenerateCommitMessage() {
   const { action, terminator, language } = getPreferenceValues<PreferenceValues>();
 
   const prompt = `
