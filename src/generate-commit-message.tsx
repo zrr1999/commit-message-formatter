@@ -1,9 +1,8 @@
 import { getPreferenceValues, getSelectedText, Clipboard, showToast, Toast, showHUD } from "@raycast/api";
-import { PreferenceValues } from "./lib/types";
 import { getCommitMessage } from "./lib/utils";
 
 export default async function GenerateCommitMessage() {
-  const { action } = getPreferenceValues<PreferenceValues>();
+  const { action } = getPreferenceValues<Preferences.GenerateCommitMessage>();
 
   const selectedText = (await getSelectedText()) || (await Clipboard.readText());
   if (!selectedText) {

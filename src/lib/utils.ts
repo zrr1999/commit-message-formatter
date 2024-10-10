@@ -1,10 +1,10 @@
 import { getPreferenceValues, showToast, Toast } from "@raycast/api";
-import { PreferenceValues, gitmojis } from "./types";
+import { gitmojis } from "./types";
 import { OpenAI } from "openai";
 import { ChatCompletionTool } from "openai/resources";
 
 export async function ask(prompt: string, message: string, tools: ChatCompletionTool[]) {
-  const { openAiApiKey, openAiBasePath, model } = getPreferenceValues<PreferenceValues>();
+  const { openAiApiKey, openAiBasePath, model } = getPreferenceValues<ExtensionPreferences>();
   const openai = new OpenAI({
     apiKey: openAiApiKey,
     baseURL: openAiBasePath,
@@ -23,7 +23,7 @@ export async function ask(prompt: string, message: string, tools: ChatCompletion
 }
 
 export function getEmojiTextByType(type: string) {
-  const { emojiFormat, copyFormat } = getPreferenceValues<PreferenceValues>();
+  const { emojiFormat, copyFormat } = getPreferenceValues<ExtensionPreferences>();
   const gitmoji = gitmojis.find((g) => g.type === type);
   if (!gitmoji) {
     throw new Error(`No gitmoji found for type: ${type}`);
@@ -37,7 +37,7 @@ export function getEmojiTextByType(type: string) {
 }
 
 export async function getCommitMessage(selectedText: string) {
-  const { terminator, language } = getPreferenceValues<PreferenceValues>();
+  const { terminator, language } = getPreferenceValues<ExtensionPreferences>();
   const tools = [
     {
       type: "function" as const,

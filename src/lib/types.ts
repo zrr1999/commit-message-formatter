@@ -1,15 +1,3 @@
-export interface PreferenceValues {
-  emojiFormat: "emoji" | "code";
-  copyFormat: "emoji" | "emoji-type";
-  terminator: string;
-  action: "paste" | "copy" | "copy-paste";
-  openAiApiKey: string;
-  openAiBasePath?: string;
-  model: string;
-  language: string;
-  candidateCount?: string;
-}
-
 export interface GitmojiListItemProps {
   id: string;
   gitmoji: Gitmoji;

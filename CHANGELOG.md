@@ -1,5 +1,8 @@
 # Commit Message Formatter Changelog
 
+## [Upgrade Commit Message Formatter] - 2024-10-10
+- ♻️ refactor: remove unused code and use raycast-env.d.ts
+
 ## [Upgrade Commit Message Formatter] - 2024-10-04
 - ✨ feat: support displaying multiple candidate commit messages on the search page
 

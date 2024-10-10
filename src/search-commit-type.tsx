@@ -1,5 +1,5 @@
 import { Action, ActionPanel, Clipboard, Color, getPreferenceValues, List, LaunchProps, Icon } from "@raycast/api";
-import { GitmojiListItemProps, CommitMessageItemProps, PreferenceValues, gitmojis } from "./lib/types";
+import { GitmojiListItemProps, CommitMessageItemProps, gitmojis } from "./lib/types";
 import { useState } from "react";
 import { usePromise } from "@raycast/utils";
 import { getCommitMessage } from "./lib/utils";
@@ -9,7 +9,7 @@ interface SearchCommitTypeArgs {
 }
 
 function getMultiCommitMessage(input: string) {
-  const { candidateCount } = getPreferenceValues<PreferenceValues>();
+  const { candidateCount } = getPreferenceValues<Preferences.SearchCommitType>();
   const count = candidateCount ? parseInt(candidateCount) : 1;
   return Promise.all(Array.from({ length: count }, () => getCommitMessage(input)));
 }
@@ -63,7 +63,7 @@ export default function SearchCommitType(props: LaunchProps<{ arguments: SearchC
 }
 
 function CommitMessageItem({ id, commitMessage, onRegenerate }: CommitMessageItemProps) {
-  const { model, language } = getPreferenceValues<PreferenceValues>();
+  const { model, language } = getPreferenceValues<Preferences.SearchCommitType>();
 
   return (
     <List.Item
@@ -114,7 +114,7 @@ function CommitMessageItem({ id, commitMessage, onRegenerate }: CommitMessageIte
 
 function GitmojiListItem({ gitmoji }: GitmojiListItemProps) {
   const { name, desc, emoji, code, type } = gitmoji;
-  const { emojiFormat, copyFormat, terminator } = getPreferenceValues<PreferenceValues>();
+  const { emojiFormat, copyFormat, terminator } = getPreferenceValues<Preferences.SearchCommitType>();
 
   let emojiText = emojiFormat === "emoji" ? emoji : code;
 
@@ -158,7 +158,7 @@ interface PrimaryActionProps {
 }
 
 function PrimaryAction({ content }: PrimaryActionProps) {
-  const { action } = getPreferenceValues<PreferenceValues>();
+  const { action } = getPreferenceValues<Preferences.SearchCommitType>();
 
   if (action === "copy") {
     return <Action.CopyToClipboard content={content} />;
