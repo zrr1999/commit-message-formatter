@@ -3,12 +3,16 @@ import { getCommitMessage } from "./lib/utils";
 
 export default async function GenerateCommitMessage() {
   const { action } = getPreferenceValues<Preferences.GenerateCommitMessage>();
-
-  const selectedText = (await getSelectedText()) || (await Clipboard.readText());
-  if (!selectedText) {
+  let commitMessage: string | undefined = undefined;
+  try {
+    commitMessage = await getSelectedText();
+  } catch (error) {
+    commitMessage = await Clipboard.readText();
+  }
+  if (!commitMessage) {
     await showToast({
       style: Toast.Style.Failure,
-      title: "No text selected",
+      title: "No text selected or copied",
     });
     return;
   }
@@ -16,15 +20,15 @@ export default async function GenerateCommitMessage() {
     style: Toast.Style.Animated,
     title: "Generating commit message...",
   });
-  const commitMessage = await getCommitMessage(selectedText);
-  if (!commitMessage) {
+  const formattedCommitMessage = await getCommitMessage(commitMessage);
+  if (!formattedCommitMessage) {
     return;
   }
   if (action.includes("paste")) {
-    await Clipboard.paste(commitMessage);
+    await Clipboard.paste(formattedCommitMessage);
   }
   if (action.includes("copy")) {
     await showHUD("Commit message copied to clipboard");
-    await Clipboard.copy(commitMessage);
+    await Clipboard.copy(formattedCommitMessage);
   }
 }
