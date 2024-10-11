@@ -31,28 +31,30 @@ export default function SearchCommitType(props: LaunchProps<{ arguments: SearchC
       }}
       throttle={true}
     >
-      <List.Section title="Commit Message">
-        {isLoading || !commitMessages ? (
-          <List.Item
-            id="generating-commit-message-loading"
-            icon={Icon.CircleProgress}
-            title="Generating commit message..."
-          />
-        ) : (
-          commitMessages
-            .filter((commitMessage) => commitMessage !== undefined)
-            .map((commitMessage, index) => (
-              <CommitMessageItem
-                id={`message-${input}-${index}`}
-                key={`message-${input}-${index}`}
-                commitMessage={commitMessage}
-                onRegenerate={() => {
-                  setInput(commitMessage);
-                }}
-              />
-            ))
-        )}
-      </List.Section>
+      {input && (
+        <List.Section title="Commit Message">
+          {isLoading || !commitMessages ? (
+            <List.Item
+              id="generating-commit-message-loading"
+              icon={Icon.CircleProgress}
+              title="Generating commit message..."
+            />
+          ) : (
+            commitMessages
+              .filter((commitMessage) => commitMessage !== undefined)
+              .map((commitMessage, index) => (
+                <CommitMessageItem
+                  id={`message-${input}-${index}`}
+                  key={`message-${input}-${index}`}
+                  commitMessage={commitMessage}
+                  onRegenerate={() => {
+                    setInput(commitMessage);
+                  }}
+                />
+              ))
+          )}
+        </List.Section>
+      )}
       <List.Section title="Gitmoji">
         {gitmojis.map((gitmoji) => (
           <GitmojiListItem id={gitmoji.name} key={gitmoji.name} gitmoji={gitmoji} />
