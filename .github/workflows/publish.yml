@@ -11,21 +11,15 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: latest
-      - name: Install dependencies
-        run: bun install
       - name: Generate package-lock.json
-        run: bunx synp --source-file yarn.lock
+        run: npm install
       - name: Upload package-lock.json
         uses: actions/upload-artifact@v4
         with:
           name: lock
           path: package-lock.json
       - name: Build
-        run: bun run build
+        run: npm run build
 
   publish:
     runs-on: ubuntu-latest
@@ -49,6 +43,7 @@ jobs:
             !.github/*
             !yarn.lock
             !bun.lockb
+            !bunfig.toml
       - name: Checkout code
         uses: zrr1999/publish-raycast-extension@main
         with:
