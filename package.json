@@ -4,7 +4,6 @@
   "title": "Commit Message Formatter",
   "description": "Generate and format your commit message according to the selected text with LLM",
   "icon": "icon.png",
-  "owner": "bone-corp",
   "author": "zrr1999",
   "contributors": [],
   "license": "MIT",
