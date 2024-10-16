@@ -43,6 +43,7 @@ jobs:
           name: raycast-publish
           path: |
             *
+            .*
             !.git/*
             !.github/*
             !yarn.lock
