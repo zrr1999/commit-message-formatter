@@ -41,9 +41,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: raycast-publish
+          include-hidden-files: true
           path: |
             *
-            .*
             !.git/*
             !.github/*
             !yarn.lock

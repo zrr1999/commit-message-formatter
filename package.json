@@ -5,7 +5,7 @@
   "description": "Generate and format your commit message according to the selected text with LLM",
   "icon": "icon.png",
   "author": "zrr1999",
-  "contributors": [],
+  "contributors": ["SigureMo"],
   "license": "MIT",
   "commands": [
     {
