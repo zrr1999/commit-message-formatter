@@ -1,5 +1,9 @@
 # Commit Message Formatter Changelog
 
+## [Upgrade Commit Message Formatter] - 2024-10-11
+- 🐛 fix: disable agent when input is empty
+- 🐛 fix: fix crash when no text is selected or copied
+
 ## [Upgrade Commit Message Formatter] - 2024-10-10
 - ♻️ refactor: remove unused code and use raycast-env.d.ts
 
