@@ -1,8 +1,6 @@
-/// <reference path="../../raycast-env.d.ts" />
 import { getPreferenceValues, showToast, Toast } from "@raycast/api";
 import { gitmojis } from "./types";
 import { OpenAI } from "openai";
-
 
 export async function ask(prompt: string, message: string) {
   const { openAiApiKey, openAiBasePath, model } = getPreferenceValues<ExtensionPreferences>();
@@ -39,13 +37,13 @@ export async function ask(prompt: string, message: string) {
           },
           required: ["type", "message"],
           additionalProperties: false,
-        }
+        },
       },
-    }
+    },
   });
 
   const output_text = response.output_text;
-  
+
   const json = JSON.parse(output_text);
   return json;
 }
@@ -66,26 +64,6 @@ export function getEmojiTextByType(type: string) {
 
 export async function getCommitMessage(selectedText: string) {
   const { terminator, language } = getPreferenceValues<ExtensionPreferences>();
-  const tools = [
-    {
-      type: "function" as const,
-      function: {
-        name: "generate_commit_message",
-        parameters: {
-          type: "object",
-          properties: {
-            type: {
-              type: "string",
-              enum: gitmojis.map((gitmoji) => gitmoji.type),
-            },
-            message: { type: "string" },
-          },
-          required: ["type", "message"],
-          additionalProperties: false,
-        },
-      },
-    },
-  ];
 
   const prompt = `
     You are a helpful assistant that generates commit messages in ${language} based on the selected text.
@@ -102,13 +80,14 @@ export async function getCommitMessage(selectedText: string) {
   
     **Important:** If specific capitalization or language is required, such as for proper nouns, do not modify the case or language.
   
-    For example, use ("${gitmojis[0].type
+    For example, use ("${
+      gitmojis[0].type
     }", "add functionality for information retrieval") instead of longer descriptions.
     `;
   try {
     const response = await ask(
       prompt,
-      `Selected text: ${selectedText}. Give me a commit message and translate it to ${language}.`
+      `Selected text: ${selectedText}. Give me a commit message and translate it to ${language}.`,
     );
 
     const commitMessage = `${getEmojiTextByType(response.type)}${terminator}${response.message}`;
